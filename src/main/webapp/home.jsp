@@ -122,68 +122,8 @@
     </div>
 </section>
 
-<section class="padding-medium story bg-light" id="about">
-    <div class="container d-flex justify-content-center align-items-center">
-        <div class="row">
-            <div class="col-4 mr-4">
-                <div class="div-img">
-                </div>
-            </div>
-
-            <div class="col-7 ml-4">
-                <h1 class="pb-1">Lorem ipsum dolor sit amet</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat
-                    volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed. Lorem ipsum dolor sit
-                    amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat. Donec
-                    placerat nisl magna, et faucibus arcu condimentum sed.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="last-info-section padding-small" id="contact">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h3 class="mb-4">Lorem ipsum dolor</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem.  Aliquam erat volutpat. Donec placerat nisl magna.</p>
-            </div>
-            <div class="col pl-4 ml-4">
-                <h3 class="mb-4">Lorem ipsum dolor</h3>
-                <ul class="container">
-                    <li>consectetur adipiscing elit</li>
-                    <li>sed do eiusmod tempor</li>
-                    <li>incididunt ut labore</li>
-                    <li>et dolore magna aliqua</li>
-                </ul>
-            </div>
-            <div class="col">
-                <h3 class="mb-4">Lorem ipsum dolor</h3>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control border-0 rounded-0" placeholder=""
-                           aria-label="Recipient's username" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="input-group-text btn-color border-0 rounded-0" type="submit" id="basic-addon2"><a
-                                href="index.html">Lorem</a></button>
-                    </div>
-                </div>
-                <div class="container d-flex-row">
-                    <a href="#">
-                        <i class="fab fa-facebook-square mr-4 icon-social"></i>
-                    </a>
-                    <a href="#">
-                        <i class="fab fa-twitter-square mr-4 icon-social"></i>
-
-                    </a>
-                    <a href="#">
-                        <i class="fab fa-instagram icon-social"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<%@include file="fragments/about.jspf"%>
+<%@include file="fragments/contact.jspf"%>
 <%@include file="fragments/footer.jspf"%>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

@@ -1,4 +1,4 @@
-package pl.coderslab.web;
+package pl.coderslab.controller;
 
 import pl.coderslab.dao.BookDao;
 import pl.coderslab.model.Book;
@@ -11,16 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Do not change servlet address !!!
- */
 @WebServlet("")
-public class HomeServlet extends HttpServlet {
-
+// adres servletu niezmieniony - przy wstawieniu "/" nie implementuje się styl
+public class ServletLanding extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        BookDao bookDao = new BookDao();
-        List<Book> books = bookDao.findAll();
-        System.out.println(books);
 
         getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
     }
