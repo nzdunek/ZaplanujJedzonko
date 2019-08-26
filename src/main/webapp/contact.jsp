@@ -19,5 +19,6 @@
 <%@include file="fragments/header.jspf"%>
 <%@include file="fragments/contact.jspf"%>
 <%@include file="fragments/footer.jspf"%>
+
 </body>
 </html>
