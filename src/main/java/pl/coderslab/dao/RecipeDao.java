@@ -12,9 +12,10 @@ public class RecipeDao {
             "INSERT INTO recipe (name, ingredients, description, created, preparation_time, preparation, admin_id) VALUES (?,?,?, current_timestamp(),?,?,?)";
     private static final String DELETE_RECIPE_QUERY = "DELETE * FROM recipe WHERE id = ?";
     private static final String FIND_ALL_RECIPES_QUERY = "SELECT * FROM recipe";
-    public static final String READ_RECIPE_QUERY = "SELECT * FROM recipe WHERE id=?";
-    public static final String UPDATE_RECIPE_QUERY =
+    private static final String READ_RECIPE_QUERY = "SELECT * FROM recipe WHERE id=?";
+    private static final String UPDATE_RECIPE_QUERY =
             "UPDATE recipe SET updated = current_timestamp(), name = ?, ingredients = ?, description = ?, created = ?, preparation_time = ?, preparation = ?, admin_id=? WHERE id = ?";
+    
 
     public Recipe create(Recipe recipe) {
         try (Connection conn = DbUtil.getConnection()) {
