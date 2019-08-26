@@ -16,30 +16,7 @@
 </head>
 
 <body>
-<header class="page-header">
-    <nav class="navbar navbar-expand-lg justify-content-around">
-        <a href="/" class="navbar-brand main-logo">
-            Zaplanuj <span>Jedzonko</span>
-        </a>
-        <ul class="nav nounderline text-uppercase">
-            <li class="nav-item ml-4">
-                <a class="nav-link color-header" href="login.html">logowanie</a>
-            </li>
-            <li class="nav-item ml-4">
-                <a class="nav-link color-header" href="registration.html">rejestracja</a>
-            </li>
-            <li class="nav-item ml-4">
-                <a class="nav-link" href="#about">o aplikacji</a>
-            </li>
-            <li class="nav-item ml-4">
-                <a class="nav-link disabled" href="recipes.html">Przepisy</a>
-            </li>
-            <li class="nav-item ml-4">
-                <a class="nav-link disabled" href="#contact">Kontakt</a>
-            </li>
-        </ul>
-    </nav>
-</header>
+<%@include file="fragments/header.jspf"%>
 
 <section class="padding-large bg-light">
     <div id="carouselExampleControls" class="carousel slide main-slider" data-ride="carousel">
@@ -207,11 +184,7 @@
         </div>
     </div>
 </section>
-<footer class="footer-section pt-3 pb-3">
-    <div class="container text-center">
-        <h5 class="text-light">Copyright <span class="footer-text-color">ZaplanujJedzonko.pl</span></h5>
-    </div>
-</footer>
+<%@include file="fragments/footer.jspf"%>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
