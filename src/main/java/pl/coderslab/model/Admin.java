@@ -36,6 +36,16 @@ public class Admin {
         this.superAdmin = superAdmin;
         this.enable = enable;
     }
+
+    public Admin(String firstName, String lastName, String email, String password, int superAdmin, int enable) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.superAdmin = superAdmin;
+        this.enable = enable;
+    }
+
     public void hashPassword(String password) {
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }

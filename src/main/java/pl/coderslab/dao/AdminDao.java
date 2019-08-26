@@ -2,7 +2,6 @@ package pl.coderslab.dao;
 
 import pl.coderslab.exception.NotFoundException;
 import pl.coderslab.model.Admin;
-import pl.coderslab.model.Book;
 import pl.coderslab.utils.DbUtil;
 
 import java.sql.Connection;
@@ -14,7 +13,7 @@ import java.util.List;
 
 public class AdminDao {
     private static final String CREATE_ADMINS_QUERY =
-            "INSERT INTO admins (first_name, last_name, email, password, superadmin, enable) VALUES (?,?,?,?,?)";
+            "INSERT INTO admins (id, first_name, last_name, email, password, superadmin, enable) VALUES (null, ?,?,?,?,?,?)";
     private static final String DELETE_ADMIN_QUERY =
             "DELETE FROM admins where id = ?;";
     private static final String FIND_ALL_ADMINS_QUERY =
@@ -97,7 +96,7 @@ public class AdminDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return admin;
     }
     public void delete(Integer adminId) {
         try (Connection connection = DbUtil.getConnection();
