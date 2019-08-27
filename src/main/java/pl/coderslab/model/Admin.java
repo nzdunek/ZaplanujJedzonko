@@ -43,7 +43,7 @@ public class Admin {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        hashPassword(password);
+        this.hashPassword(password);
         this.superAdmin = superAdmin;
         this.enable = enable;
     }
@@ -95,7 +95,7 @@ public class Admin {
     }
 
     public void setPassword(String password) {
-        hashPassword(password);
+        this.password=password;
     }
 
     public int getSuperAdmin() {
