@@ -22,6 +22,8 @@ public class AdminDao {
             "SELECT * from admins where id = ?;";
     private static final String UPDATE_ADMIN_QUERY =
             "UPDATE admins SET first_name = ? , last_name = ?, email = ?, password = ?, superadmin = ?, enable = ? WHERE id = ?;";
+    private static final String AUTHORIZATION_QUERY =
+            "SELECT email, password FROM admins";
 
     public Admin read(Integer adminId) {
         Admin admin = new Admin();
@@ -46,6 +48,7 @@ public class AdminDao {
         return admin;
 
     }
+
     public List<Admin> findAll() {
         List<Admin> adminList = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection();
@@ -68,6 +71,7 @@ public class AdminDao {
         }
         return adminList;
     }
+
     public Admin create(Admin admin) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement insertStm = connection.prepareStatement(CREATE_ADMINS_QUERY,
@@ -98,10 +102,11 @@ public class AdminDao {
         }
         return admin;
     }
+
     public void delete(Integer adminId) {
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_ADMIN_QUERY)) {
-            statement.setInt(1,adminId);
+            statement.setInt(1, adminId);
             statement.executeUpdate();
 
             boolean deleted = statement.execute();
@@ -127,7 +132,29 @@ public class AdminDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
+    public String authorization(Admin admin) {
+
+        String email = admin.getEmail();
+        String password = admin.getPassword();
+
+        String emailDB = "";
+        String passwordDB = "";
+
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(AUTHORIZATION_QUERY);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                emailDB = resultSet.getString("email");
+                passwordDB = resultSet.getString("password");
+                if(email.equals(emailDB) && password.equals(passwordDB)) {
+                    return "SUCCESS";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "Invalid";
+    }
 }

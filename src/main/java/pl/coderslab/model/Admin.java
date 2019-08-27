@@ -10,6 +10,17 @@ public class Admin {
     private String password;
     private int superAdmin;
     private int enable;
+    private boolean isAdminLogged;
+
+
+    public Admin(String firstName, String lastName, String email, String password, int superAdmin, int enable) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.superAdmin = superAdmin;
+        this.enable = enable;
+    }
 
     @Override
     public String toString() {
@@ -32,18 +43,15 @@ public class Admin {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.hashPassword(password);
+        hashPassword(password);
         this.superAdmin = superAdmin;
         this.enable = enable;
     }
 
-    public Admin(String firstName, String lastName, String email, String password, int superAdmin, int enable) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Admin(int id, String email, String password) {
+        this.id = id;
         this.email = email;
         this.password = password;
-        this.superAdmin = superAdmin;
-        this.enable = enable;
     }
 
     public void hashPassword(String password) {
@@ -79,7 +87,7 @@ public class Admin {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email;;
     }
 
     public String getPassword() {
@@ -87,7 +95,7 @@ public class Admin {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        hashPassword(password);
     }
 
     public int getSuperAdmin() {
@@ -105,4 +113,5 @@ public class Admin {
     public void setEnable(int enable) {
         this.enable = enable;
     }
+
 }
