@@ -31,13 +31,13 @@ public class Login extends HttpServlet {
         String userValidate = adminDao.authorization(admin);
 
         if (userValidate.equals("SUCCESS")) {
-            session.setAttribute("users", email);
+            session.setAttribute("users", admin);
             response.sendRedirect("/");
         } else {
             request.setAttribute("warning2", "true");
             doGet(request, response);
         }
-        if (session.getAttribute("users") == email) {
+        if (session.getAttribute("users") == admin) {
             System.out.println("Połączono z sesją");
         } else {
             System.out.println("Nie połączono z sesją");
