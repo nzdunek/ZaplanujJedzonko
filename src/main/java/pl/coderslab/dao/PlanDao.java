@@ -2,6 +2,7 @@ package pl.coderslab.dao;
 
 
 import pl.coderslab.model.Admin;
+import pl.coderslab.model.DayMealRecipe;
 import pl.coderslab.model.Plan;
 import pl.coderslab.utils.DbUtil;
 
@@ -148,30 +149,24 @@ public class PlanDao {
         return plan;
     }
 
-    public List <String> printDashboardInfo (int admin_id) {
-        Plan plan = new Plan();
-        PlanDao pd = new PlanDao();
-        plan = pd.lastPlan(admin_id);
-        int planId = plan.getId();
-        List<String> list = new ArrayList<String>();
+    public List <DayMealRecipe> printDashboardInfo (int admin_id) {
+//        Plan plan = new Plan();
+//        PlanDao pd = new PlanDao();
+//        plan = pd.lastPlan(admin_id);
+//        int planId = plan.getId();
+        List<DayMealRecipe> list = new ArrayList<DayMealRecipe>();
 
-        String day_name;
-        String meal_name;
-        String recipe_name;
-        String recipe_description;
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(SHOW_PLAN_DETAILS)) {
-            statement.setInt(1, planId);
+            statement.setInt(1, 6);
+//            statement.setInt(1, planId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    day_name = resultSet.getString("day_name");
-                    meal_name = resultSet.getString("meal_name");
-                    recipe_name = resultSet.getString("recipe_name");
-                    recipe_description = resultSet.getString("recipe_description");
-                    list.add(day_name);
-                    list.add(meal_name);
-                    list.add(recipe_name);
-                    list.add(recipe_description);
+                    String day_name = resultSet.getString("day_name");
+                    String meal_name = resultSet.getString("meal_name");
+                    String recipe_name = resultSet.getString("recipe_name");
+                    DayMealRecipe dmr = new DayMealRecipe(day_name, meal_name, recipe_name);
+                    list.add(dmr);
                 }
             }
         } catch (Exception e) {

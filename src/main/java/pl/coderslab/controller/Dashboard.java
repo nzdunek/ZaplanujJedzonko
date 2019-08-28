@@ -2,6 +2,7 @@ package pl.coderslab.controller;
 
 import pl.coderslab.dao.PlanDao;
 import pl.coderslab.dao.RecipeDao;
+import pl.coderslab.model.DayMealRecipe;
 import pl.coderslab.model.Plan;
 
 import javax.servlet.ServletException;
@@ -27,7 +28,7 @@ public class Dashboard extends HttpServlet {
         countPlan = pd.countUsersPlans(1);
         int countRecipe;
         countRecipe = rd.countUsersRecipies(1);
-        List <String> list = new ArrayList<String>();
+        List <DayMealRecipe> list = new ArrayList<DayMealRecipe>();
         list = pd.printDashboardInfo(1);
 
         request.setAttribute("list", list);
