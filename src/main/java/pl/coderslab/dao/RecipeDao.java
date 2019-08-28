@@ -1,8 +1,10 @@
 package pl.coderslab.dao;
 
 
+import pl.coderslab.model.Book;
 import pl.coderslab.model.Recipe;
 import pl.coderslab.utils.DbUtil;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,10 @@ public class RecipeDao {
     private static final String READ_RECIPE_QUERY = "SELECT * FROM recipe WHERE id=?";
     private static final String UPDATE_RECIPE_QUERY =
             "UPDATE recipe SET updated = current_timestamp(), name = ?, ingredients = ?, description = ?, created = ?, preparation_time = ?, preparation = ?, admin_id=? WHERE id = ?";
-    
+    private static final String FIND_ALL_RECIPES_BY_USER =
+            "SELECT * FROM recipe WHERE admin_id=?";
+    private static final String COUNT_USERS_RECIPE =
+            "SELECT count(admin_id) FROM recipe WHERE admin_id=?";
 
     public Recipe create(Recipe recipe) {
         try (Connection conn = DbUtil.getConnection()) {
@@ -120,5 +125,49 @@ public class RecipeDao {
 
     }
 
-}
+    public List <Recipe> findAllRecipesByUser(int admin_id) {
+        List<Recipe> recipes = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL_RECIPES_BY_USER);
+             ResultSet resultSet = statement.executeQuery()) {
 
+            while (resultSet.next()) {
+                Recipe recipe = new Recipe();
+                recipe.setId(resultSet.getInt("id"));
+                recipe.setName(resultSet.getString("name"));
+                recipe.setIngredients(resultSet.getString("ingredients"));
+                recipe.setDescription(resultSet.getString("description"));
+                recipe.setCreated(resultSet.getString("created"));
+                recipe.setUpdated(resultSet.getString("updated"));
+                recipe.setPreparation_time(resultSet.getInt("preparation_time"));
+                recipe.setPreparation(resultSet.getString("preparation"));
+                admin_id = resultSet.getInt("admin_id");
+                AdminDao adminDao = new AdminDao();
+                recipe.setAdmin(adminDao.read(admin_id));
+                recipes.add(recipe);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return recipes;
+    }
+
+
+    public int countUsersRecipies(int admin_id) {
+            int counter = -1;
+            try (Connection connection = DbUtil.getConnection();
+                PreparedStatement statement = connection.prepareStatement(COUNT_USERS_RECIPE)) {
+                statement.setInt(1, admin_id);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        counter = resultSet.getInt("count(admin_id)");
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return counter;
+    }
+
+}
