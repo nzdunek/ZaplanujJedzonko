@@ -28,9 +28,9 @@ public class Login extends HttpServlet {
         admin.setPassword(password);
 
         AdminDao adminDao = new AdminDao();
-        String userValidate = adminDao.authorization(admin);
+        Admin userValidate = adminDao.authorization(admin);
 
-        if (userValidate.equals("SUCCESS")) {
+        if (userValidate.equals(admin)) {
             session.setAttribute("users", admin);
             response.sendRedirect("/app/dashboard");
         } else {

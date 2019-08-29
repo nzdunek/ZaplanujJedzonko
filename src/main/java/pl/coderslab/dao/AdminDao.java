@@ -23,7 +23,7 @@ public class AdminDao {
     private static final String UPDATE_ADMIN_QUERY =
             "UPDATE admins SET first_name = ? , last_name = ?, email = ?, password = ?, superadmin = ?, enable = ? WHERE id = ?;";
     private static final String AUTHORIZATION_QUERY =
-            "SELECT email, password FROM admins";
+            "SELECT email, password, id FROM admins";
 
     public Admin read(Integer adminId) {
         Admin admin = new Admin();
@@ -134,7 +134,7 @@ public class AdminDao {
         }
     }
 
-    public String authorization(Admin admin) {
+    public Admin authorization(Admin admin) {
 
         String email = admin.getEmail();
         String password = admin.getPassword();
@@ -148,13 +148,14 @@ public class AdminDao {
             while (resultSet.next()) {
                 emailDB = resultSet.getString("email");
                     passwordDB = resultSet.getString("password");
+                    admin.setId(resultSet.getInt("id"));
                 if (email.equals(emailDB) && password.equals(passwordDB)) {
-                    return "SUCCESS";
+                    return admin;
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "Invalid";
+        return null;
     }
 }

@@ -23,8 +23,7 @@ public class Dashboard extends HttpServlet {
 
         HttpSession session = request.getSession();
         Admin admin = (Admin) session.getAttribute("users");
-        // int id = admin.getId();
-        int id = 2;
+        int id = admin.getId();
 
         PlanDao pd = new PlanDao();
         RecipeDao rd = new RecipeDao();
