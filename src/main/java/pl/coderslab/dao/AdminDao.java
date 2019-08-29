@@ -147,8 +147,8 @@ public class AdminDao {
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 emailDB = resultSet.getString("email");
-                passwordDB = resultSet.getString("password");
-                if(email.equals(emailDB) && password.equals(passwordDB)) {
+                    passwordDB = resultSet.getString("password");
+                if (email.equals(emailDB) && password.equals(passwordDB)) {
                     return "SUCCESS";
                 }
             }

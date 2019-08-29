@@ -85,11 +85,11 @@
                 <div class="dashboard-alerts">
                     <div class="alert-item alert-info">
                         <i class="fas icon-circle fa-info-circle"></i>
-                        <span class="font-weight-bold">Liczba przepisów: ${countPlan} </span>
+                        <span class="font-weight-bold">Liczba przepisów: ${countRecipe} </span>
                     </div>
                     <div class="alert-item alert-light">
                         <i class="far icon-calendar fa-calendar-alt"></i>
-                        <span class="font-weight-bold">Liczba planów: ${countRecipe}</span>
+                        <span class="font-weight-bold">Liczba planów: ${countPlan}</span>
                     </div>
                 </div>
             </div>
@@ -98,21 +98,123 @@
                     <span>Ostatnio dodany plan:</span> ${plan.name}
                 </h2>
                 <table class="table">
-                    <c:forEach items="${list}" var="list">
                     <thead>
                     <tr class="d-flex">
-                        <th class="col-2">${list.day_name}</th>
+                        <th class="col-2">Poniedziałek</th>
                         <th class="col-8"></th>
                         <th class="col-2"></th>
                     </tr>
                     </thead>
                     <tbody>
+                    <c:forEach items="${pon}" var="pon">
                     <tr class="d-flex">
-                        <td class="col-2">${list.meal_name}</td>
-                        <td class="col-8">${list.recipe_name}</td>
+                        <td class="col-2">${pon.meal_name}</td>
+                        <td class="col-8">${pon.recipe_name}</td>
                         <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
                     </tr>
                 </c:forEach>
+                </table>
+                <table class="table">
+                    <thead>
+                    <tr class="d-flex">
+                        <th class="col-2">Wtorek</th>
+                        <th class="col-8"></th>
+                        <th class="col-2"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${wt}" var="wt">
+                    <tr class="d-flex">
+                        <td class="col-2">${wt.meal_name}</td>
+                        <td class="col-8">${wt.recipe_name}</td>
+                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
+                    </tr>
+                    </c:forEach>
+                </table>
+                <table class="table">
+                    <thead>
+                    <tr class="d-flex">
+                        <th class="col-2">Środa</th>
+                        <th class="col-8"></th>
+                        <th class="col-2"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${sr}" var="sr">
+                    <tr class="d-flex">
+                        <td class="col-2">${sr.meal_name}</td>
+                        <td class="col-8">${sr.recipe_name}</td>
+                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
+                    </tr>
+                    </c:forEach>
+                </table>
+                <table class="table">
+                    <thead>
+                    <tr class="d-flex">
+                        <th class="col-2">Czwartek</th>
+                        <th class="col-8"></th>
+                        <th class="col-2"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${czw}" var="czw">
+                    <tr class="d-flex">
+                        <td class="col-2">${czw.meal_name}</td>
+                        <td class="col-8">${czw.recipe_name}</td>
+                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
+                    </tr>
+                    </c:forEach>
+                </table>
+                <table class="table">
+                    <thead>
+                    <tr class="d-flex">
+                        <th class="col-2">Piątek</th>
+                        <th class="col-8"></th>
+                        <th class="col-2"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${pt}" var="pt">
+                    <tr class="d-flex">
+                        <td class="col-2">${pt.meal_name}</td>
+                        <td class="col-8">${pt.recipe_name}</td>
+                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
+                    </tr>
+                    </c:forEach>
+                </table>
+                <table class="table">
+                    <thead>
+                    <tr class="d-flex">
+                        <th class="col-2">Sobota</th>
+                        <th class="col-8"></th>
+                        <th class="col-2"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${sb}" var="sb">
+                    <tr class="d-flex">
+                        <td class="col-2">${sb.meal_name}</td>
+                        <td class="col-8">${sb.recipe_name}</td>
+                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
+                    </tr>
+                    </c:forEach>
+                </table>
+                <table class="table">
+                    <thead>
+                    <tr class="d-flex">
+                        <th class="col-2">Niedziela</th>
+                        <th class="col-8"></th>
+                        <th class="col-2"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${nd}" var="nd">
+                    <tr class="d-flex">
+                        <td class="col-2">${nd.meal_name}</td>
+                        <td class="col-8">${nd.recipe_name}</td>
+                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
+                    </tr>
+                    </c:forEach>
                 </table>
             </div>
         </div>

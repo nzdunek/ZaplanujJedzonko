@@ -149,17 +149,31 @@ public class PlanDao {
         return plan;
     }
 
+    public List <DayMealRecipe> printList (List <DayMealRecipe> main, int admin_id, String day_name) {
+
+        PlanDao pd = new PlanDao();
+        List<DayMealRecipe> result = new ArrayList<>();
+        main = pd.printDashboardInfo(admin_id);
+
+        for (DayMealRecipe dmr : main) {
+            if (dmr.getDay_name().equalsIgnoreCase(day_name)) {
+                result.add(dmr);
+            }
+        }
+        return result;
+    }
+
+
     public List <DayMealRecipe> printDashboardInfo (int admin_id) {
-//        Plan plan = new Plan();
-//        PlanDao pd = new PlanDao();
-//        plan = pd.lastPlan(admin_id);
-//        int planId = plan.getId();
+        Plan plan = new Plan();
+        PlanDao pd = new PlanDao();
+        plan = pd.lastPlan(admin_id);
+        int planId = plan.getId();
         List<DayMealRecipe> list = new ArrayList<DayMealRecipe>();
 
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(SHOW_PLAN_DETAILS)) {
-            statement.setInt(1, 6);
-//            statement.setInt(1, planId);
+            statement.setInt(1, planId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     String day_name = resultSet.getString("day_name");
