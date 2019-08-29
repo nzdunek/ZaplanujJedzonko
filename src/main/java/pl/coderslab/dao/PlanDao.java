@@ -16,6 +16,7 @@ public class PlanDao {
             "INSERT INTO plan(name,description,created, admin_id) VALUES (?,?,current_timestamp(),?);";
     private static final String DELETE_PLAN_QUERY = "DELETE FROM plan where id = ?;";
     private static final String FIND_ALL_PLANS_QUERY = "SELECT * FROM plan;";
+    private static final String FIND_ALL_USER_PLANS = "SELECT * FROM plan where admin_id = ?;";
     private static final String READ_PLAN_QUERY = "SELECT * FROM plan WHERE id = ?;";
     private static final String READ_LAST_PLAN_QUERY = "SELECT * FROM plan WHERE admin_id = ? order by created desc limit 1;";
     private static final String UPDATE_PLAN_QUERY =
@@ -84,6 +85,31 @@ public class PlanDao {
         return planList;
     }
 
+    public List<Plan> findAllUserPlans (int admin_id) {
+
+        List<Plan> planList = new ArrayList<>();
+
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL_USER_PLANS)) {
+            statement.setInt(1, admin_id);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Plan planToAdd = new Plan();
+                    planToAdd.setId(resultSet.getInt("id"));
+                    planToAdd.setName(resultSet.getString("name"));
+                    planToAdd.setDescription(resultSet.getString("description"));
+                    planToAdd.setCreated(resultSet.getString("created"));
+                    planList.add(planToAdd);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return planList;
+    }
+
     public Plan read(Integer planId) {
         Plan plan = new Plan();
         try (Connection connection = DbUtil.getConnection();
@@ -126,7 +152,7 @@ public class PlanDao {
 
     }
 
-    public Plan lastPlan (int admin_id) {
+    public Plan lastPlan(int admin_id) {
         Plan plan = new Plan();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(READ_LAST_PLAN_QUERY)
@@ -149,7 +175,7 @@ public class PlanDao {
         return plan;
     }
 
-    public List <DayMealRecipe> printList (List <DayMealRecipe> main, int admin_id, String day_name) {
+    public List<DayMealRecipe> printList(List<DayMealRecipe> main, int admin_id, String day_name) {
 
         PlanDao pd = new PlanDao();
         List<DayMealRecipe> result = new ArrayList<>();
@@ -164,7 +190,7 @@ public class PlanDao {
     }
 
 
-    public List <DayMealRecipe> printDashboardInfo (int admin_id) {
+    public List<DayMealRecipe> printDashboardInfo(int admin_id) {
         Plan plan = new Plan();
         PlanDao pd = new PlanDao();
         plan = pd.lastPlan(admin_id);

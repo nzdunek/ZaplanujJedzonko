@@ -24,6 +24,7 @@ public class Dashboard extends HttpServlet {
         HttpSession session = request.getSession();
         Admin admin = (Admin) session.getAttribute("users");
         int id = admin.getId();
+        String name = admin.getFirstName();
 
         PlanDao pd = new PlanDao();
         RecipeDao rd = new RecipeDao();
@@ -48,6 +49,7 @@ public class Dashboard extends HttpServlet {
         request.setAttribute("pt", pt);
         request.setAttribute("sb", sb);
         request.setAttribute("nd", nd);
+        request.setAttribute("name", name);
         request.setAttribute("countPlan", countPlan);
         request.setAttribute("countRecipe", countRecipe);
 
