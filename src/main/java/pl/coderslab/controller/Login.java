@@ -32,7 +32,7 @@ public class Login extends HttpServlet {
 
         if (userValidate.equals("SUCCESS")) {
             session.setAttribute("users", admin);
-            response.sendRedirect("/");
+            response.sendRedirect("/app/dashboard");
         } else {
             request.setAttribute("warning2", "true");
             doGet(request, response);
