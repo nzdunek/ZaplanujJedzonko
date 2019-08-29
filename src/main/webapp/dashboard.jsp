@@ -16,7 +16,7 @@
 </head>
 
 <body>
-<%@ include file="fragments/header.jspf"%>
+
 
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
