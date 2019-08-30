@@ -74,6 +74,7 @@
                         <td class="col-8">${pon.recipe_name}</td>
                         <td class="col-2">
                             <a href="/app/recipe/details?id=${pon.recipe_id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                        </td>
                     </tr>
 
                 </c:forEach>
@@ -91,7 +92,9 @@
                     <tr class="d-flex">
                         <td class="col-2">${wt.meal_name}</td>
                         <td class="col-8">${wt.recipe_name}</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
+                        <td class="col-2">
+                            <a href="/app/recipe/details?id=${wt.recipe_id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                        </td>
                     </tr>
                     </c:forEach>
                 </table>
@@ -108,7 +111,9 @@
                     <tr class="d-flex">
                         <td class="col-2">${sr.meal_name}</td>
                         <td class="col-8">${sr.recipe_name}</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
+                        <td class="col-2">
+                            <a href="/app/recipe/details?id=${sr.recipe_id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                        </td>
                     </tr>
                     </c:forEach>
                 </table>
@@ -125,7 +130,9 @@
                     <tr class="d-flex">
                         <td class="col-2">${czw.meal_name}</td>
                         <td class="col-8">${czw.recipe_name}</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
+                        <td class="col-2">
+                            <a href="/app/recipe/details?id=${czw.recipe_id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                        </td>
                     </tr>
                     </c:forEach>
                 </table>
@@ -142,7 +149,9 @@
                     <tr class="d-flex">
                         <td class="col-2">${pt.meal_name}</td>
                         <td class="col-8">${pt.recipe_name}</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
+                        <td class="col-2">
+                            <a href="/app/recipe/details?id=${pt.recipe_id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                        </td>
                     </tr>
                     </c:forEach>
                 </table>
@@ -159,7 +168,9 @@
                     <tr class="d-flex">
                         <td class="col-2">${sb.meal_name}</td>
                         <td class="col-8">${sb.recipe_name}</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
+                        <td class="col-2">
+                            <a href="/app/recipe/details?id=${sb.recipe_id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                        </td>
                     </tr>
                     </c:forEach>
                 </table>
@@ -176,7 +187,9 @@
                     <tr class="d-flex">
                         <td class="col-2">${nd.meal_name}</td>
                         <td class="col-8">${nd.recipe_name}</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
+                        <td class="col-2">
+                            <a href="/app/recipe/details?id=${nd.recipe_id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                        </td>
                     </tr>
                     </c:forEach>
                 </table>

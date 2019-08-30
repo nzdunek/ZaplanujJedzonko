@@ -29,13 +29,13 @@ public class PlanDetails extends HttpServlet {
 
         Plan plan = pd.read(id);
         List<DayMealRecipe> main = pd.allPlansRecipies(id);
-        List<DayMealRecipe> pon = pd.printList(main, id, "poniedziałek");
-        List<DayMealRecipe> wt = pd.printList(main, id, "wtorek");
-        List<DayMealRecipe> sr = pd.printList(main, id, "środa");
-        List<DayMealRecipe> czw = pd.printList(main, id, "czwartek");
-        List<DayMealRecipe> pt = pd.printList(main, id, "piątek");
-        List<DayMealRecipe> sb = pd.printList(main, id, "sobota");
-        List<DayMealRecipe> nd = pd.printList(main, id, "niedziela");
+        List<DayMealRecipe> pon = pd.printListFromPlan(main, id, "poniedziałek");
+        List<DayMealRecipe> wt = pd.printListFromPlan(main, id, "wtorek");
+        List<DayMealRecipe> sr = pd.printListFromPlan(main, id, "środa");
+        List<DayMealRecipe> czw = pd.printListFromPlan(main, id, "czwartek");
+        List<DayMealRecipe> pt = pd.printListFromPlan(main, id, "piątek");
+        List<DayMealRecipe> sb = pd.printListFromPlan(main, id, "sobota");
+        List<DayMealRecipe> nd = pd.printListFromPlan(main, id, "niedziela");
 
         request.setAttribute("pon", pon);
         request.setAttribute("wt", wt);

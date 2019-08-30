@@ -31,8 +31,8 @@ public class PlanDao {
                     "JOIN recipe on recipe.id=recipe_id WHERE plan_id = ?\n" +
                     "ORDER by day_name.display_order, recipe_plan.display_order;";
     private static final String FIND_ALL_RECIPES_FROM_PLAN =
-            "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.id as recipe_id FROM `recipe_plan`" +
-                    "JOIN day_name on day_name.id=day_name_id JOIN recipe on recipe.id=recipe_id WHERE plan_id = 7" +
+            "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.id as recipe_id FROM `recipe_plan`\n" +
+                    "JOIN day_name on day_name.id=day_name_id JOIN recipe on recipe.id=recipe_id WHERE plan_id = ?\n" +
                     "ORDER by day_name.display_order, recipe_plan.display_order;";
 
     public Plan create(Plan plan) {
@@ -179,6 +179,20 @@ public class PlanDao {
         PlanDao pd = new PlanDao();
         List<DayMealRecipe> result = new ArrayList<>();
         main = pd.printDashboardInfo(admin_id);
+
+        for (DayMealRecipe dmr : main) {
+            if (dmr.getDay_name().equalsIgnoreCase(day_name)) {
+                result.add(dmr);
+            }
+        }
+        return result;
+    }
+
+    public List<DayMealRecipe> printListFromPlan (List<DayMealRecipe> main, int plan_id, String day_name) {
+
+        PlanDao pd = new PlanDao();
+        List<DayMealRecipe> result = new ArrayList<>();
+        main = pd.allPlansRecipies(plan_id);
 
         for (DayMealRecipe dmr : main) {
             if (dmr.getDay_name().equalsIgnoreCase(day_name)) {
