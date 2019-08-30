@@ -9,7 +9,9 @@ public class Recipe {
     private String updated;
     private int preparation_time;
     private String preparation;
-    private Admin admin;
+    private Admin admin = new Admin();
+
+
 
     @Override
     public String toString() {
@@ -29,11 +31,6 @@ public class Recipe {
     public Recipe() {
     }
 
-    public Recipe(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
     public Recipe(int id, String name, String ingredients, String description, String created, String updated, int preparation_time, String preparation, Admin admin) {
         this.id = id;
         this.name = name;
@@ -41,6 +38,15 @@ public class Recipe {
         this.description = description;
         this.created = created;
         this.updated = updated;
+        this.preparation_time = preparation_time;
+        this.preparation = preparation;
+        this.admin = admin;
+    }
+
+    public Recipe(String name, String ingredients, String description, int preparation_time, String preparation, Admin admin) {
+        this.name = name;
+        this.ingredients = ingredients;
+        this.description = description;
         this.preparation_time = preparation_time;
         this.preparation = preparation;
         this.admin = admin;

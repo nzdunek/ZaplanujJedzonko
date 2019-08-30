@@ -1,7 +1,7 @@
 package pl.coderslab.dao;
 
 
-
+import pl.coderslab.model.Plan;
 import pl.coderslab.model.Recipe;
 import pl.coderslab.utils.DbUtil;
 
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RecipeDao {
     private static final String CREATE_RECIPE_QUERY =
-            "INSERT INTO recipe (name, ingredients, description, created, preparation_time, preparation, admin_id) VALUES (?,?,?, current_timestamp(),?,?,?)";
+            "INSERT INTO recipe (id, name, ingredients, description, created, updated, preparation_time, preparation, admin_id) VALUES (null,?,?,?,current_timestamp ,current_timestamp(),?,?,?)";
     private static final String DELETE_RECIPE_QUERY = "DELETE * FROM recipe WHERE id = ?";
     private static final String FIND_ALL_RECIPES_QUERY = "SELECT * FROM recipe";
     private static final String READ_RECIPE_QUERY = "SELECT * FROM recipe WHERE id=?";
@@ -22,26 +22,30 @@ public class RecipeDao {
     private static final String COUNT_USERS_RECIPE =
             "SELECT count(admin_id) FROM recipe WHERE admin_id=?";
 
-
     public Recipe create(Recipe recipe) {
-        try (Connection conn = DbUtil.getConnection()) {
-            PreparedStatement statement =
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement statement =
+                     conn.prepareStatement(CREATE_RECIPE_QUERY, Statement.RETURN_GENERATED_KEYS)) {
+            /*PreparedStatement statement =
                     conn.prepareStatement(CREATE_RECIPE_QUERY, Statement.RETURN_GENERATED_KEYS);
             if (recipe.getAdmin().getId() > 0) {
-                statement.setInt(1, recipe.getAdmin().getId());
+                statement.setInt(6, recipe.getAdmin().getId());
             } else {
                 throw new IllegalArgumentException("admin_id nie może być mniejsze niż 0");
             }
-            statement.setString(2, recipe.getName());
-            statement.setString(3, recipe.getIngredients());
-            statement.setString(4, recipe.getDescription());
-            statement.setInt(5, recipe.getPreparation_time());
-            statement.setString(6, recipe.getPreparation());
+            {
+             */
+            statement.setString(1, recipe.getName());
+            statement.setString(2, recipe.getIngredients());
+            statement.setString(3, recipe.getDescription());
+            statement.setInt(4, recipe.getPreparation_time());
+            statement.setString(5, recipe.getPreparation());
+            statement.setInt(6,recipe.getAdmin().getId());
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return recipe;
     }
 
     public void delete(int recipeId) {
@@ -126,9 +130,10 @@ public class RecipeDao {
 
     }
 
-    public List <Recipe> findAllRecipesByUser(int admin_id) {
-
+    public List<Recipe> findAllRecipesByUser(int admin_id) {
         List<Recipe> recipeList = new ArrayList<>();
+
+
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_ALL_RECIPES_BY_USER)) {
             statement.setInt(1, admin_id);
@@ -138,8 +143,12 @@ public class RecipeDao {
                     Recipe recipeToAdd = new Recipe();
                     recipeToAdd.setId(resultSet.getInt("id"));
                     recipeToAdd.setName(resultSet.getString("name"));
+                    recipeToAdd.setIngredients(resultSet.getString("name"));
                     recipeToAdd.setDescription(resultSet.getString("description"));
                     recipeToAdd.setCreated(resultSet.getString("created"));
+                    recipeToAdd.setUpdated(resultSet.getString("updated"));
+                    recipeToAdd.setPreparation_time(resultSet.getInt("preparation_time"));
+                    recipeToAdd.setPreparation(resultSet.getString("preparation"));
                     recipeList.add(recipeToAdd);
                 }
             }
@@ -154,7 +163,7 @@ public class RecipeDao {
     public int countUsersRecipies(int admin_id) {
             int counter = -1;
             try (Connection connection = DbUtil.getConnection();
-                PreparedStatement statement = connection.prepareStatement(COUNT_USERS_RECIPE)) {
+                 PreparedStatement statement = connection.prepareStatement(COUNT_USERS_RECIPE)) {
                 statement.setInt(1, admin_id);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {

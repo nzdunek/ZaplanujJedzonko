@@ -4,6 +4,7 @@ package pl.coderslab.dao;
 import pl.coderslab.model.Admin;
 import pl.coderslab.model.DayMealRecipe;
 import pl.coderslab.model.Plan;
+import pl.coderslab.model.Recipe;
 import pl.coderslab.utils.DbUtil;
 
 import java.sql.*;
@@ -31,26 +32,20 @@ public class PlanDao {
                     "ORDER by day_name.display_order, recipe_plan.display_order;";
 
     public Plan create(Plan plan) {
-        try (Connection conn = DbUtil.getConnection()) {
-            PreparedStatement statement =
-                    conn.prepareStatement(CREATE_PLAN_QUERY, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, plan.getDescription());
-            if (plan.getAdmin().getId() > 0) {
-                statement.setInt(2, plan.getAdmin().getId());
-            } else {
-                throw new IllegalArgumentException("admin_id nie może być mniejsze niż 0");
-            }
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement statement =
+                     conn.prepareStatement(CREATE_PLAN_QUERY, Statement.RETURN_GENERATED_KEYS)) {
+
+            statement.setString(1, plan.getName());
+            statement.setString(2, plan.getDescription());
+            statement.setInt(3, plan.getAdmin().getId());
             statement.executeUpdate();
-            ResultSet resultSet = statement.getGeneratedKeys();
-            if (resultSet.next()) {
-                plan.setId(resultSet.getInt(1));
-            }
-            return plan;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
+        return plan;
     }
+
 
     public void delete(int planId) {
         try (Connection conn = DbUtil.getConnection()) {
@@ -85,7 +80,7 @@ public class PlanDao {
         return planList;
     }
 
-    public List<Plan> findAllUserPlans (int admin_id) {
+    public List<Plan> findAllUserPlans(int admin_id) {
 
         List<Plan> planList = new ArrayList<>();
 
