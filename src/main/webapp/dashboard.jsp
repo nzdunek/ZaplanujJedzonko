@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
-90
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -73,8 +72,10 @@
                     <tr class="d-flex">
                         <td class="col-2">${pon.meal_name}</td>
                         <td class="col-8">${pon.recipe_name}</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
+                        <td class="col-2">
+                            <a href="/app/recipe/details?id=${pon.recipe_id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
                     </tr>
+
                 </c:forEach>
                 </table>
                 <table class="table">

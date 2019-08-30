@@ -25,10 +25,14 @@ public class PlanDao {
     private static final String COUNT_USERS_PLAN =
             "SELECT count(admin_id) FROM plan WHERE admin_id=?";
     private static final String SHOW_PLAN_DETAILS =
-            "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description\n" +
-                    "FROM `recipe_plan`\n" +
+            "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description, " +
+                    "recipe.id as recipe_id FROM `recipe_plan`\n" +
                     "JOIN day_name on day_name.id=day_name_id\n" +
                     "JOIN recipe on recipe.id=recipe_id WHERE plan_id = ?\n" +
+                    "ORDER by day_name.display_order, recipe_plan.display_order;";
+    private static final String FIND_ALL_RECIPES_FROM_PLAN =
+            "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.id as recipe_id FROM `recipe_plan`" +
+                    "JOIN day_name on day_name.id=day_name_id JOIN recipe on recipe.id=recipe_id WHERE plan_id = 7" +
                     "ORDER by day_name.display_order, recipe_plan.display_order;";
 
     public Plan create(Plan plan) {
@@ -80,7 +84,7 @@ public class PlanDao {
         return planList;
     }
 
-    public List<Plan> findAllUserPlans(int admin_id) {
+    public List <Plan> findAllUserPlans(int admin_id) {
 
         List<Plan> planList = new ArrayList<>();
 
@@ -200,7 +204,30 @@ public class PlanDao {
                     String day_name = resultSet.getString("day_name");
                     String meal_name = resultSet.getString("meal_name");
                     String recipe_name = resultSet.getString("recipe_name");
-                    DayMealRecipe dmr = new DayMealRecipe(day_name, meal_name, recipe_name);
+                    int recipe_id = resultSet.getInt("recipe_id");
+                    DayMealRecipe dmr = new DayMealRecipe(day_name, meal_name, recipe_name, recipe_id);
+                    list.add(dmr);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<DayMealRecipe> allPlansRecipies (int plan_id) {
+        List<DayMealRecipe> list = new ArrayList<DayMealRecipe>();
+
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL_RECIPES_FROM_PLAN)) {
+            statement.setInt(1, plan_id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    String day_name = resultSet.getString("day_name");
+                    String meal_name = resultSet.getString("meal_name");
+                    String recipe_name = resultSet.getString("recipe_name");
+                    int recipe_id = resultSet.getInt("recipe_id");
+                    DayMealRecipe dmr = new DayMealRecipe(day_name, meal_name, recipe_name, recipe_id);
                     list.add(dmr);
                 }
             }

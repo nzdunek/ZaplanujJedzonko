@@ -31,7 +31,7 @@
                         <h3 class="color-header text-uppercase">SZCZEGÓŁY PLANU</h3>
                     </div>
                     <div class="col d-flex justify-content-end mb-2 noPadding">
-                        <a href="#" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</a>
+                        <a href="/app/plan/list" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</a>
                     </div>
                 </div>
 
@@ -42,7 +42,7 @@
                                     Nazwa planu
                                 </span>
                             <div class="col-sm-10">
-                                <p class="schedules-text">Plan jarski na bezmięsny tydzień</p>
+                                <p class="schedules-text">${plan.name}</p>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -51,7 +51,7 @@
                                 </span>
                             <div class="col-sm-10">
                                 <p class="schedules-text">
-                                    Pojęcie kuchnia wegetariańska określa pożywienie, które ani nie zawiera mięsa, ani nie zostało przygotowane na bazie pochodzącej z mięsa (np. na rosole drobiowym). Laktoowowegetarianie (najczęściej spotykany typ wegetarian w zachodnim świecie) spożywają nabiał, laktowegetarianie wykluczają jaja, ale nie inne produkty nabiałowe.
+                                    ${plan.description}
                                 </p>
                             </div>
                         </div>
@@ -67,81 +67,174 @@
                         </tr>
                         </thead>
                         <tbody class="text-color-lighter">
+                        <c:forEach items="${pon}" var="pon">
                         <tr class="d-flex">
-                            <td class="col-2">śniadanie</td>
-                            <td class="col-7">płatki owsiane z jagodami i komosą ryżową</td>
+                            <td class="col-2">${pon.day_name}</td>
+                            <td class="col-7">${pon.meal_name}</td>
                             <td class="col-1 center">
-                                <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                                <a href="/app/recipe/delete?id=${pon.recipe_id}" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
                             </td>
                             <td class="col-2 center">
-                                <a href="app-details-schedules.html" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                                <a href="/app/recipe/details?id=${pon.recipe_id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
                             </td>
                         </tr>
-                        <tr class="d-flex">
-                            <td class="col-2">śniadanie</td>
-                            <td class="col-7">płatki owsiane z jagodami i komosą ryżową</td>
-                            <td class="col-1 center">
-                                <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                            </td>
-                            <td class="col-2 center">
-                                <a href="app-details-schedules.html" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                            </td>
-                        </tr>
-                        <tr class="d-flex">
-                            <td class="col-2">śniadanie</td>
-                            <td class="col-7">płatki owsiane z jagodami i komosą ryżową</td>
-                            <td class="col-1 center">
-                                <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                            </td>
-                            <td class="col-2 center">
-                                <a href="app-details-schedules.html" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                            </td>
-                        </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
 
                     <table class="table">
                         <thead>
                         <tr class="d-flex">
-                            <th class="col-2">Poniedziałek</th>
+                            <th class="col-2">Wtorek</th>
                             <th class="col-7"></th>
                             <th class="col-1"></th>
                             <th class="col-2"></th>
                         </tr>
                         </thead>
                         <tbody class="text-color-lighter">
-                        <tr class="d-flex">
-                            <td class="col-2">śniadanie</td>
-                            <td class="col-7">płatki owsiane z jagodami i komosą ryżową</td>
-                            <td class="col-1 center">
-                                <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                            </td>
-                            <td class="col-2 center">
-                                <a href="app-details-schedules.html" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                            </td>
-                        </tr>
-                        <tr class="d-flex">
-                            <td class="col-2">śniadanie</td>
-                            <td class="col-7">płatki owsiane z jagodami i komosą ryżową</td>
-                            <td class="col-1 center">
-                                <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                            </td>
-                            <td class="col-2 center">
-                                <a href="app-details-schedules.html" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                            </td>
-                        </tr>
-                        <tr class="d-flex">
-                            <td class="col-2">śniadanie</td>
-                            <td class="col-7">płatki owsiane z jagodami i komosą ryżową</td>
-                            <td class="col-1 center">
-                                <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                            </td>
-                            <td class="col-2 center">
-                                <a href="app-details-schedules.html" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                            </td>
-                        </tr>
+                        <c:forEach items="${wt}" var="wt">
+                            <tr class="d-flex">
+                                <td class="col-2">${wt.day_name}</td>
+                                <td class="col-7">${wt.meal_name}</td>
+                                <td class="col-1 center">
+                                    <a href="/app/recipe/delete?id=${wt.recipe_id}" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                                </td>
+                                <td class="col-2 center">
+                                    <a href="/app/recipe/details?id=${wt.recipe_id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
+
+                    <table class="table">
+                        <thead>
+                        <tr class="d-flex">
+                            <th class="col-2">Środa</th>
+                            <th class="col-7"></th>
+                            <th class="col-1"></th>
+                            <th class="col-2"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-color-lighter">
+                        <c:forEach items="${sr}" var="sr">
+                            <tr class="d-flex">
+                                <td class="col-2">${sr.day_name}</td>
+                                <td class="col-7">${sr.meal_name}</td>
+                                <td class="col-1 center">
+                                    <a href="/app/recipe/delete?id=${sr.recipe_id}" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                                </td>
+                                <td class="col-2 center">
+                                    <a href="/app/recipe/details?id=${sr.recipe_id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+
+                    <table class="table">
+                        <thead>
+                        <tr class="d-flex">
+                            <th class="col-2">Czwartek</th>
+                            <th class="col-7"></th>
+                            <th class="col-1"></th>
+                            <th class="col-2"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-color-lighter">
+                        <c:forEach items="${czw}" var="czw">
+                            <tr class="d-flex">
+                                <td class="col-2">${czw.day_name}</td>
+                                <td class="col-7">${czw.meal_name}</td>
+                                <td class="col-1 center">
+                                    <a href="/app/recipe/delete?id=${czw.recipe_id}" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                                </td>
+                                <td class="col-2 center">
+                                    <a href="/app/recipe/details?id=${czw.recipe_id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+
+                    <table class="table">
+                        <thead>
+                        <tr class="d-flex">
+                            <th class="col-2">Piątek</th>
+                            <th class="col-7"></th>
+                            <th class="col-1"></th>
+                            <th class="col-2"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-color-lighter">
+                        <c:forEach items="${pt}" var="pt">
+                            <tr class="d-flex">
+                                <td class="col-2">${pt.day_name}</td>
+                                <td class="col-7">${pt.meal_name}</td>
+                                <td class="col-1 center">
+                                    <a href="/app/recipe/delete?id=${pt.recipe_id}" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                                </td>
+                                <td class="col-2 center">
+                                    <a href="/app/recipe/details?id=${pt.recipe_id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+
+
+                    <table class="table">
+                        <thead>
+                        <tr class="d-flex">
+                            <th class="col-2">Sobota</th>
+                            <th class="col-7"></th>
+                            <th class="col-1"></th>
+                            <th class="col-2"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-color-lighter">
+                        <c:forEach items="${sb}" var="sb">
+                            <tr class="d-flex">
+                                <td class="col-2">${sb.day_name}</td>
+                                <td class="col-7">${sb.meal_name}</td>
+                                <td class="col-1 center">
+                                    <a href="/app/recipe/delete?id=${sb.recipe_id}" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                                </td>
+                                <td class="col-2 center">
+                                    <a href="/app/recipe/details?id=${sb.recipe_id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+
+                    <table class="table">
+                        <thead>
+                        <tr class="d-flex">
+                            <th class="col-2">Niedziela</th>
+                            <th class="col-7"></th>
+                            <th class="col-1"></th>
+                            <th class="col-2"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-color-lighter">
+                        <c:forEach items="${nd}" var="nd">
+                            <tr class="d-flex">
+                                <td class="col-2">${nd.day_name}</td>
+                                <td class="col-7">${nd.meal_name}</td>
+                                <td class="col-1 center">
+                                    <a href="/app/recipe/delete?id=${nd.recipe_id}" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                                </td>
+                                <td class="col-2 center">
+                                    <a href="/app/recipe/details?id=${nd.recipe_id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+
+
+
 
                 </div>
             </div>
