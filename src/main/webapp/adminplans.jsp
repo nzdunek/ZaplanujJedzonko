@@ -44,9 +44,10 @@
                             <th class="col-2 center">AKCJE</th>
                         </tr>
                         </thead>
+                        <c:forEach items="${list}" var="list">
                         <tbody class="text-color-lighter">
                         <tr class="d-flex">
-                            <c:forEach items="${list}" var="list">
+
                             <td class="col-1">${list.id}</td>
                             <td class="col-2">${list.name}</td>
                             <td class="col-7">${list.description}
@@ -56,8 +57,8 @@
                                 <a href="/app-edit-schedules.html" class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
                             </td>
                         </tr>
-                        </c:forEach>
                         </tbody>
+                        </c:forEach>
                     </table>
                 </div>
             </div>

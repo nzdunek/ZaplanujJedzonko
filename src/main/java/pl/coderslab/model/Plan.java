@@ -21,6 +21,12 @@ public class Plan {
     public Plan() {
     }
 
+    public Plan(String name, String description, Admin admin) {
+        this.name = name;
+        this.description = description;
+        this.admin = admin;
+    }
+
     public Plan(int id, String name, String description, String created, Admin admin) {
         this.id = id;
         this.name = name;

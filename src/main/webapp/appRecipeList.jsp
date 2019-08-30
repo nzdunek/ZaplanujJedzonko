@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<link rel="stylesheet" type="text/css" href="css/style.css"/>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +30,7 @@
             <div class="dashboard-content border-dashed p-3 m-4 view-height">
                 <div class="row border-bottom border-3 p-1 m-1">
                     <div class="col noPadding"><h3 class="color-header text-uppercase">Lista Przepisów</h3></div>
-                    <div class="col noPadding d-flex justify-content-end mb-2"><a href="/app-add-recipe.html"
+                    <div class="col noPadding d-flex justify-content-end mb-2"><a href="/app/recipe/add"
                                                                                   class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Dodaj
                         przepis</a></div>
                 </div>
@@ -60,7 +61,6 @@
                             </td>
                         </tr>
                         </tbody>
-                        <br>
                     </c:forEach>
                 </table>
             </div>
@@ -79,5 +79,4 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 </body>
-</html>
 </html>

@@ -1,6 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<%--
+  Created by IntelliJ IDEA.
+  User: karol
+  Date: 26.08.2019
+  Time: 13:27
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -16,17 +23,7 @@
 </head>
 
 <body>
-<header class="page-header">
-    <nav class="navbar navbar-expand-lg justify-content-between">
-        <a href="/" class="navbar-brand main-logo main-logo-smaller">
-            Zaplanuj <span>Jedzonko</span>
-        </a>
-        <div class="d-flex justify-content-around">
-            <h4 class="text-light mr-3">Imię</h4>
-            <div class="circle-div text-center"><i class="fas fa-user icon-user"></i></div>
-        </div>
-    </nav>
-</header>
+<%@include file="fragments/dashHeader.jspf" %>
 
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
@@ -36,7 +33,11 @@
             <div class="dashboard-content border-dashed p-3 m-4 view-height">
                 <!-- fix action, method -->
                 <!-- add name attribute for all inputs -->
-                <form>
+                <form method="post" action="/app/recipe/add">
+
+                    <c:if test="${warning == 'true'}">
+                        WYPEŁNIJ WSZYSTKIE POLA!
+                    </c:if>
                     <div class="mt-4 ml-4 mr-4">
                         <div class="row border-bottom border-3">
                             <div class="col"><h3 class="color-header text-uppercase">Nowy przepis</h3></div>
@@ -56,12 +57,12 @@
                             </tr>
                             <tr class="d-flex">
                                 <th scope="row" class="col-2">Opis przepisu</th>
-                                <td class="col-7"><textarea class="w-100 p-1" rows="5"></textarea></td>
+                                <td class="col-7"><textarea name="description" class="w-100 p-1" rows="5"></textarea></td>
                             </tr>
                             <tr class="d-flex">
                                 <th scope="row" class="col-2">Przygotowanie (minuty)</th>
                                 <td class="col-3">
-                                    <input class="p-1" type="number" value="">
+                                    <input name="preparation_time" class="p-1" type="number" value=0>
                                 </td>
                             </tr>
                             </tbody>
@@ -75,12 +76,12 @@
                         </div>
                         <div class="row d-flex">
                             <div class="col-5 p-4">
-                                <textarea class="w-100 p-1" rows="10"></textarea>
+                                <textarea name="preparation" class="w-100 p-1" rows="10"></textarea>
                             </div>
                             <div class="col-2"></div>
 
                             <div class="col-5 p-4">
-                                <textarea class="w-100 p-1" rows="10"></textarea>
+                                <textarea name="ingredients" class="w-100 p-1" rows="10"></textarea>
                             </div>
                         </div>
                     </div>
