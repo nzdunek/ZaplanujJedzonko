@@ -48,6 +48,10 @@ public class Admin {
         this.enable = enable;
     }
 
+    public Admin(int id) {
+        this.id = id;
+    }
+
     public Admin(int id, String email, String password) {
         this.id = id;
         this.email = email;

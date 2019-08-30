@@ -4,6 +4,7 @@ package pl.coderslab.dao;
 import pl.coderslab.model.Admin;
 import pl.coderslab.model.DayMealRecipe;
 import pl.coderslab.model.Plan;
+import pl.coderslab.model.Recipe;
 import pl.coderslab.utils.DbUtil;
 
 import java.sql.*;
@@ -16,6 +17,7 @@ public class PlanDao {
             "INSERT INTO plan(name,description,created, admin_id) VALUES (?,?,current_timestamp(),?);";
     private static final String DELETE_PLAN_QUERY = "DELETE FROM plan where id = ?;";
     private static final String FIND_ALL_PLANS_QUERY = "SELECT * FROM plan;";
+    private static final String FIND_ALL_USER_PLANS = "SELECT * FROM plan where admin_id = ?;";
     private static final String READ_PLAN_QUERY = "SELECT * FROM plan WHERE id = ?;";
     private static final String READ_LAST_PLAN_QUERY = "SELECT * FROM plan WHERE admin_id = ? order by created desc limit 1;";
     private static final String UPDATE_PLAN_QUERY =
@@ -30,26 +32,20 @@ public class PlanDao {
                     "ORDER by day_name.display_order, recipe_plan.display_order;";
 
     public Plan create(Plan plan) {
-        try (Connection conn = DbUtil.getConnection()) {
-            PreparedStatement statement =
-                    conn.prepareStatement(CREATE_PLAN_QUERY, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, plan.getDescription());
-            if (plan.getAdmin().getId() > 0) {
-                statement.setInt(2, plan.getAdmin().getId());
-            } else {
-                throw new IllegalArgumentException("admin_id nie może być mniejsze niż 0");
-            }
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement statement =
+                     conn.prepareStatement(CREATE_PLAN_QUERY, Statement.RETURN_GENERATED_KEYS)) {
+
+            statement.setString(1, plan.getName());
+            statement.setString(2, plan.getDescription());
+            statement.setInt(3, plan.getAdmin().getId());
             statement.executeUpdate();
-            ResultSet resultSet = statement.getGeneratedKeys();
-            if (resultSet.next()) {
-                plan.setId(resultSet.getInt(1));
-            }
-            return plan;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
+        return plan;
     }
+
 
     public void delete(int planId) {
         try (Connection conn = DbUtil.getConnection()) {
@@ -81,6 +77,31 @@ public class PlanDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return planList;
+    }
+
+    public List<Plan> findAllUserPlans(int admin_id) {
+
+        List<Plan> planList = new ArrayList<>();
+
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL_USER_PLANS)) {
+            statement.setInt(1, admin_id);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Plan planToAdd = new Plan();
+                    planToAdd.setId(resultSet.getInt("id"));
+                    planToAdd.setName(resultSet.getString("name"));
+                    planToAdd.setDescription(resultSet.getString("description"));
+                    planToAdd.setCreated(resultSet.getString("created"));
+                    planList.add(planToAdd);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return planList;
     }
 
@@ -126,7 +147,7 @@ public class PlanDao {
 
     }
 
-    public Plan lastPlan (int admin_id) {
+    public Plan lastPlan(int admin_id) {
         Plan plan = new Plan();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(READ_LAST_PLAN_QUERY)
@@ -149,7 +170,7 @@ public class PlanDao {
         return plan;
     }
 
-    public List <DayMealRecipe> printList (List <DayMealRecipe> main, int admin_id, String day_name) {
+    public List<DayMealRecipe> printList(List<DayMealRecipe> main, int admin_id, String day_name) {
 
         PlanDao pd = new PlanDao();
         List<DayMealRecipe> result = new ArrayList<>();
@@ -164,7 +185,7 @@ public class PlanDao {
     }
 
 
-    public List <DayMealRecipe> printDashboardInfo (int admin_id) {
+    public List<DayMealRecipe> printDashboardInfo(int admin_id) {
         Plan plan = new Plan();
         PlanDao pd = new PlanDao();
         plan = pd.lastPlan(admin_id);

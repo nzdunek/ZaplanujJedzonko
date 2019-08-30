@@ -13,14 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/app/dashboard")
-public class Dashboard extends HttpServlet {
+@WebServlet("/app/plan/list")
+public class PlanList extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         HttpSession session = request.getSession();
         Admin admin = (Admin) session.getAttribute("users");
         int id = admin.getId();
@@ -33,27 +31,14 @@ public class Dashboard extends HttpServlet {
         int countRecipe;
         countRecipe = rd.countUsersRecipies(id);
 
-        List<DayMealRecipe> main = pd.printDashboardInfo(id);
-        List<DayMealRecipe> pon = pd.printList(main, id, "poniedziałek");
-        List<DayMealRecipe> wt = pd.printList(main, id, "wtorek");
-        List<DayMealRecipe> sr = pd.printList(main, id, "środa");
-        List<DayMealRecipe> czw = pd.printList(main, id, "czwartek");
-        List<DayMealRecipe> pt = pd.printList(main, id, "piątek");
-        List<DayMealRecipe> sb = pd.printList(main, id, "sobota");
-        List<DayMealRecipe> nd = pd.printList(main, id, "niedziela");
+        List<Plan> list = pd.findAllUserPlans(id);
 
-        request.setAttribute("pon", pon);
-        request.setAttribute("wt", wt);
-        request.setAttribute("sr", sr);
-        request.setAttribute("czw", czw);
-        request.setAttribute("pt", pt);
-        request.setAttribute("sb", sb);
-        request.setAttribute("nd", nd);
+        request.setAttribute("list", list);
         request.setAttribute("name", name);
-        request.setAttribute("countPlan", countPlan);
         request.setAttribute("countRecipe", countRecipe);
+        request.setAttribute("countPlan", countPlan);
 
-        getServletContext().getRequestDispatcher("/dashboard.jsp")
+        getServletContext().getRequestDispatcher("/adminplans.jsp")
                 .forward(request, response);
     }
 }
