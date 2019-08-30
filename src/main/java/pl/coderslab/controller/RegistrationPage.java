@@ -32,12 +32,9 @@ public class RegistrationPage extends HttpServlet {
             request.setAttribute("warning", "true");
             doGet(request, response);
         }
-
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
     }
 }

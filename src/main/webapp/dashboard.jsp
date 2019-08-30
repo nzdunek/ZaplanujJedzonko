@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
-
+90
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -28,19 +28,19 @@
                     <div class="menu-item border-dashed">
                         <a href="">
                             <i class="far fa-plus-square icon-plus-square"></i>
-                            <span class="title">dodaj przepis</span>
+                            <a href="/app/recipe/add"><span class="title">dodaj przepis</span></a>
                         </a>
                     </div>
                     <div class="menu-item border-dashed">
                         <a href="">
                             <i class="far fa-plus-square icon-plus-square"></i>
-                            <span class="title">dodaj plan</span>
+                            <a href="/app/plan/add"><span class="title">dodaj plan</span></a>
                         </a>
                     </div>
                     <div class="menu-item border-dashed">
                         <a href="">
                             <i class="far fa-plus-square icon-plus-square"></i>
-                            <span class="title">dodaj przepis do planu</span>
+                            <a href="/app/recipe/plan/add"><span class="title">dodaj przepis do planu</span></a>
                         </a>
                     </div>
                 </div>
