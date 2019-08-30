@@ -1,7 +1,7 @@
 package pl.coderslab.dao;
 
 
-import pl.coderslab.model.Book;
+
 import pl.coderslab.model.Recipe;
 import pl.coderslab.utils.DbUtil;
 
@@ -21,6 +21,7 @@ public class RecipeDao {
             "SELECT * FROM recipe WHERE admin_id=?";
     private static final String COUNT_USERS_RECIPE =
             "SELECT count(admin_id) FROM recipe WHERE admin_id=?";
+
 
     public Recipe create(Recipe recipe) {
         try (Connection conn = DbUtil.getConnection()) {
@@ -126,31 +127,27 @@ public class RecipeDao {
     }
 
     public List <Recipe> findAllRecipesByUser(int admin_id) {
-        List<Recipe> recipes = new ArrayList<>();
+
+        List<Recipe> recipeList = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement(FIND_ALL_RECIPES_BY_USER);
-             ResultSet resultSet = statement.executeQuery()) {
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL_RECIPES_BY_USER)) {
+            statement.setInt(1, admin_id);
 
-            while (resultSet.next()) {
-                Recipe recipe = new Recipe();
-                recipe.setId(resultSet.getInt("id"));
-                recipe.setName(resultSet.getString("name"));
-                recipe.setIngredients(resultSet.getString("ingredients"));
-                recipe.setDescription(resultSet.getString("description"));
-                recipe.setCreated(resultSet.getString("created"));
-                recipe.setUpdated(resultSet.getString("updated"));
-                recipe.setPreparation_time(resultSet.getInt("preparation_time"));
-                recipe.setPreparation(resultSet.getString("preparation"));
-                admin_id = resultSet.getInt("admin_id");
-                AdminDao adminDao = new AdminDao();
-                recipe.setAdmin(adminDao.read(admin_id));
-                recipes.add(recipe);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Recipe recipeToAdd = new Recipe();
+                    recipeToAdd.setId(resultSet.getInt("id"));
+                    recipeToAdd.setName(resultSet.getString("name"));
+                    recipeToAdd.setDescription(resultSet.getString("description"));
+                    recipeToAdd.setCreated(resultSet.getString("created"));
+                    recipeList.add(recipeToAdd);
+                }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return recipes;
+
+        return recipeList;
     }
 
 
