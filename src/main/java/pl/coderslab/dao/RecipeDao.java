@@ -48,10 +48,10 @@ public class RecipeDao {
         return recipe;
     }
 
-    public void delete(int recipeId) {
+    public void delete(int id) {
         try (Connection conn = DbUtil.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(DELETE_RECIPE_QUERY);
-            statement.setInt(1, recipeId);
+            statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
